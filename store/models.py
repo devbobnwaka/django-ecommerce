@@ -5,7 +5,9 @@ from category.models import Category
 class Product(models.Model):
     PERCENTAGE = 'PER'
     FIXED = 'FIX'
+    NONE = 'NIL'
     DISCOUNT_TYPE_CHOICE = [
+        (NONE,"NONE"),
         (PERCENTAGE,"PERCENTAGE"),
         (FIXED,"FIXED"),
     ]
