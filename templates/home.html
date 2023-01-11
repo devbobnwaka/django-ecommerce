@@ -152,8 +152,11 @@
                             <figure class="product-media">
                                 <span class="product-label label-primary">Sale</span>
                                 <a href="product.html">
-                                    <img src="{% static 'assets/images/demos/demo-17/products/product-2.jpg' %}" alt="Product image" class="product-image">
-                                    <img src="{% static 'assets/images/demos/demo-17/products/product-2-2.jpg' %}" alt="Product image" class="product-image-hover">
+                                    {% comment %} {%  with image=product.productimage_set.first %}
+                                    <img src="{{  image.images.url }}" alt="Product image" class="product-image">
+                                    {% endwith %} {% endcomment %}
+                                    <img src="{{  product.productimage_set.all.0.images.url }}" alt="Product image" class="product-image">
+                                    <img src="{{product.productimage_set.all.1.images.url}}" alt="Product image" class="product-image-hover">
                                 </a>
 
                                 <div class="product-action-vertical">
@@ -169,14 +172,20 @@
 
                             <div class="product-body">
                                 <div class="product-cat">
-                                    <a href="#">Shoes</a>
+                                    <a href="#">{{product.category_id}}</a>
                                 </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Sandals with lacing</a></h3><!-- End .product-title -->
-
+                                <h3 class="product-title"><a href="product.html">{{product.product_name}}</a></h3><!-- End .product-title -->
+                                {% if product.discount_type == "NIL"  %}
+                                <div class="product-price">
+                                    ${{product.price}}
+                                </div>
+                                {% else %}
                                 <div class="product-price">
                                     <span class="new-price">Now $70.00</span>
-                                    <span class="old-price">Was $84.00</span>
-                                </div><!-- End .product-price -->
+                                    <span class="old-price">Was ${{product.price}}</span>
+                                </div>
+                                {% endif %}
+                                <!-- End .product-price -->
                             </div><!-- End .product-body -->
                         </div><!-- End .product -->
                     </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
