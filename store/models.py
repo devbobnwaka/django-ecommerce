@@ -27,6 +27,21 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
+    def discount_price(self):
+        if self.discount_type == 'FIX':
+            return self.discount_value
+        elif self.discount_type == 'PER':
+            return self.price - round((self.discount_value/100) * self.price)
+
+    def discount_per(self):
+        if self.discount_type == 'PER':
+            return self.discount_value
+        elif self.discount_type == 'FIX':
+            return 100 - round((self.discount_value/self.price) * 100)
+
+
+
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
