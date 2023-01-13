@@ -4,6 +4,8 @@ from store.models import Product, ProductImage
 # Create your views here.
 
 def home(request):
+    # del request.session['slug']
+
     product_qs = Product.objects.all()
     paginator = Paginator(product_qs, 10)
     page_number = request.GET.get('page')

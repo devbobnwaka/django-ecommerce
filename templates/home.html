@@ -168,7 +168,11 @@
                                 </div><!-- End .product-action -->
 
                                 <div class="product-action">
+                                    {% if product.slug in request.session.slug %}
+                                    <a href="" class="btn-product btn-cart" style='background:#ec476d'><span>already in cart</span></a>
+                                    {% else %}
                                     <a href=" {% url 'add_cart' product.slug %}" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    {% endif %}
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
