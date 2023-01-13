@@ -168,7 +168,7 @@
                                 </div><!-- End .product-action -->
 
                                 <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <a href=" {% url 'add_cart' product.slug %}" class="btn-product btn-cart"><span>add to cart</span></a>
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
 
@@ -183,7 +183,7 @@
                                 </div>
                                 {% else %}
                                 <div class="product-price">
-                                    <span class="new-price">Now ${{product.discount_price}}</span>
+                                         <span class="new-price">Now ${{product.discount_price}}</span>
                                     <span class="old-price">Was ${{product.price}}</span>
                                 </div>
                                 {% endif %}
