@@ -169,7 +169,7 @@
 
                                 <div class="product-action">
                                     {% if product.slug in request.session.slug %}
-                                    <a href="" class="btn-product btn-cart" style='background:#ec476d'><span>already in cart</span></a>
+                                    <a href="{% url 'remove_cart' product.slug %}" class="btn-product btn-cart" style='background:#ec476d'><span>remove from cart</span></a>
                                     {% else %}
                                     <a href=" {% url 'add_cart' product.slug %}" class="btn-product btn-cart"><span>add to cart</span></a>
                                     {% endif %}

@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
+def cart(request):
+    return render(request, 'cart/cart.html', {})
+
 
 def add_cart(request, slug):
     
@@ -15,5 +18,7 @@ def add_cart(request, slug):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-def cart(request):
-    return render(request, 'cart/cart.html', {})
+def remove_cart(request, slug):
+    request.session['slug'].remove(slug)
+    request.session.modified = True
+    return redirect(request.META.get('HTTP_REFERER'))
