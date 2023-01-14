@@ -93,28 +93,46 @@
                                 <div class="product product-7 text-center">
                                     <figure class="product-media">
                                         {% comment %} <span class="product-label label-new">New</span> {% endcomment %}
+                                        {% if not product.stock %}
                                         <span class="product-label label-out">Out of Stock</span>
-                                        <a href="product.html">
-                                            <img src="{% static 'assets/images/products/product-4.jpg' %}" alt="Product image" class="product-image">
+                                        {% endif %}
+                                        <a href="{% url 'single_product' product.slug %}">
+                                            <img src="{{  product.productimage_set.all.0.images.url }}" alt="Product image" class="product-image">
                                         </a>
 
                                         <div class="product-action-vertical">
                                             <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                            <a href="{% url 'single_product' product.slug %}" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
                                         </div><!-- End .product-action-vertical -->
 
                                         <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                            {% if not product.stock %} 
+                                            <a href="#" class="btn-product btn-cart" style='background:#ec476d'><span>out of stock</span></a> 
+                                            {% else %}
+                                                {% if product.slug in request.session.slug %}
+                                                <a href="{% url 'remove_cart' product.slug %}" class="btn-product btn-cart" style='background:#ec476d'>
+                                                    <span>remove from cart</span>
+                                                </a> 
+                                                {% else %}
+                                                <a href="{% url 'add_cart' product.slug %}" class="btn-product btn-cart"><span>add to cart</span></a> 
+                                                {% endif %}
+                                            {% endif %}
+                                            
+                                            
                                         </div><!-- End .product-action -->
                                     </figure><!-- End .product-media -->
 
                                     <div class="product-body">
                                         <div class="product-cat">
-                                            <a href="#">Women</a>
+                                            <a href="#">{{product.category_id}}</a>
                                         </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Brown paperbag waist pencil skirt</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $60.00
+                                        <h3 class="product-title"><a href="product.html">{{product.product_name}}</a></h3><!-- End .product-title -->
+                                        <div class="{% if not product.stock %} out-price {% else %} product-price {% endif %}">
+                                            {% if product.discount_type == "NIL"  %}
+                                                ${{product.price}}
+                                            {% else %}
+                                                ${{product.discount_price}}
+                                            {% endif %}
                                         </div><!-- End .product-price -->
                                         {% comment %} <div class="ratings-container">
                                             <div class="ratings">
@@ -123,16 +141,11 @@
                                             <span class="ratings-text">( 2 Reviews )</span>
                                         </div><!-- End .rating-container --> {% endcomment %}
                                         <div class="product-nav product-nav-thumbs">
+                                            {% for product_image in product.productimage_set.all %}
                                             <a href="#" class="active">
-                                                <img src="{% static 'assets/images/products/product-4-thumb.jpg' %}" alt="product desc">
+                                                <img src="{{product_image.images.url}}" alt="product desc">
                                             </a>
-                                            <a href="#">
-                                                <img src="{% static 'assets/images/products/product-4-2-thumb.jpg' %}" alt="product desc">
-                                            </a>
-
-                                            <a href="#">
-                                                <img src="{% static 'assets/images/products/product-4-3-thumb.jpg' %}" alt="product desc">
-                                            </a>
+                                            {% endfor %}
                                         </div><!-- End .product-nav -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product -->
