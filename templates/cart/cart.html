@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block css %}
+<style>
+    .flex-container{
+        display: flex;
+        justify-content: space-between;
+    }
 
+    .form-c{
+      width: 130px;
+      height: 40px;
+      border: 1px solid #dadada;
+      padding: 5px 20px 10px 20px;
+    }
+</style>
+{% endblock css %}
 {% block content %}
 <main class="main">
     <div class="page-header text-center" style="background-image: url({% static 'assets/images/page-header-bg.jpg' %})">
@@ -53,7 +67,33 @@
                                     <td class="price-col">${{product.discount_price}}</td>
                                     <td class="quantity-col">
                                         <div class="cart-product-quantity">
-                                            <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                            <div class="form-c flex-container">
+                                                <a href="
+                                                    {% for key, value in request.session.quantity.items %}
+                                                        {% if key == product.slug %}/decrease_cart_quantity/{{product.slug}}{% endif %}
+                                                    {% endfor %}">-
+                                                </a>
+                                                <span>{% for key, value in request.session.quantity.items %}
+                                                        {% if key == product.slug %}{{value}}{% endif %}
+                                                      {% endfor %}
+                                                </span>
+                                                <a href="
+                                                    {% for key, value in request.session.quantity.items %}
+                                                        {% if key == product.slug %}/increase_cart_quantity/{{product.slug}}{% endif %}
+                                                    {% endfor %}">+
+                                                </a>
+                                            </div>
+                                            
+                                            {% comment %} <div class="form-c flex-container">
+                                                <a href="/decrease_cart_quantity/{{product.slug}}">-
+                                                </a>
+                                                <span>{% for key, value in request.session.quantity.items %}
+                                                            {% if key == product.slug %}{{value}}{% endif %}
+                                                        {% endfor %}
+                                                </span>
+                                                <a href="/increase_cart_quantity/{{product.slug}}">+
+                                                </a>
+                                            </div> {% endcomment %}
                                         </div><!-- End .cart-product-quantity -->
                                     </td>
                                     <td class="total-col">$84.00</td>
