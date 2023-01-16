@@ -11,14 +11,17 @@ def cart(request):
 
 
 def add_cart(request, slug):
-    
+    product = Product.objects.get(slug=slug)
     if 'slug' in request.session:
         if slug not in request.session['slug']:
             request.session['slug'].append(slug)
-            request.session['quantity'][slug] = 1
+            request.session['quantity'] = {slug: 1}
+            request.session['discount_price_total'] = {slug: product.discount_price()}
     else:
         request.session['slug'] = [slug]
-        request.session['quantity'][slug] = 1
+        request.session['quantity'] =  {slug: 1}
+        request.session['discount_price_total'] = {slug: product.discount_price()}
+
         
     # del request.session['slug']
     request.session.modified = True
@@ -29,25 +32,28 @@ def add_cart(request, slug):
 def remove_cart(request, slug):
     request.session['slug'].remove(slug)
     del request.session['quantity'][slug]
+    del request.session['discount_price_total'][slug]
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 
 
 def increase_cart_quantity(request, slug):
+    product = Product.objects.get(slug=slug)
     request.session['quantity'][slug] += 1
-    print(request.session['quantity'][slug])
+    request.session['discount_price_total'] = {slug: product.discount_price() * request.session['quantity'][slug]}
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 
 
 def decrease_cart_quantity(request, slug):
+    product = Product.objects.get(slug=slug)
     if request.session['quantity'][slug] > 1:
         request.session['quantity'][slug] -= 1
-        print(request.session['slug'])
+        request.session['discount_price_total'] = {slug: product.discount_price() * request.session['quantity'][slug]}
     else:
         request.session['slug'].remove(slug)
         del request.session['quantity'][slug]
-        print(request.session['slug'])
+        del request.session['discount_price_total'][slug]
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 

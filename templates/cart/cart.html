@@ -96,7 +96,10 @@
                                             </div> {% endcomment %}
                                         </div><!-- End .cart-product-quantity -->
                                     </td>
-                                    <td class="total-col">$84.00</td>
+                                    <td class="total-col">${% for key, value in request.session.discount_price_total.items %}
+                                                                {% if key == product.slug %}{{value}}{% endif %}
+                                                            {% endfor %}
+                                    </td>
                                     <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                 </tr>
                                 {% endfor %}

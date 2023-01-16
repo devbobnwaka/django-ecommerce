@@ -5,6 +5,10 @@ from store.models import Product, ProductImage
 
 def home(request):
     # del request.session['slug']
+    # request.session.flush()
+    # request.session.modified = True
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
 
     product_qs = Product.objects.all()
     paginator = Paginator(product_qs, 10)
