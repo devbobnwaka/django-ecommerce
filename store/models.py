@@ -32,12 +32,16 @@ class Product(models.Model):
             return self.discount_value
         elif self.discount_type == 'PER':
             return self.price - round((self.discount_value/100) * self.price)
+        else:
+            return self.price
 
     def discount_per(self):
         if self.discount_type == 'PER':
             return self.discount_value
         elif self.discount_type == 'FIX':
             return 100 - round((self.discount_value/self.price) * 100)
+        else:
+            return self.price
 
 
 

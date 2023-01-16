@@ -151,14 +151,11 @@
                 <nav class="main-nav">
                     <ul class="menu sf-arrows">
                         <li class="megamenu-container active">
-                            <a href="index.html">Home</a>
-
-                            
+                            <a href="{% url 'home' %}">Home</a>
                         </li>
                         <li>
-                            <a href="category.html" class="sf-with-ul">Shop</a>
-
-                            <div class="megamenu megamenu-md">
+                            <a href="{% url 'category' %}" >Shop</a>
+                            {% comment %} <div class="megamenu megamenu-md">
                                 <div class="row no-gutters">
                                     <div class="col-md-8">
                                         <div class="menu-col">
@@ -211,7 +208,7 @@
                                         </div><!-- End .banner banner-overlay -->
                                     </div><!-- End .col-md-4 -->
                                 </div><!-- End .row -->
-                            </div><!-- End .megamenu megamenu-md -->
+                            </div><!-- End .megamenu megamenu-md --> {% endcomment %}
                         </li>
                         <li>
                             <a href="product.html" class="sf-with-ul">Product</a>
