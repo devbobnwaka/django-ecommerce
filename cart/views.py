@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpRequest, HttpResponse 
 from store.models import Product, ProductImage
 
 # Create your views here.
@@ -73,5 +74,9 @@ def decrease_cart_quantity(request, slug):
 
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def checkout(request: HttpRequest) -> HttpResponse:
+    return render(request, 'cart/checkout.html', {})
 
 

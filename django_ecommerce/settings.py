@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'accounts',
     'category',
     'store',
+    'payment',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.Account'
+
+PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY')
