@@ -82,7 +82,6 @@ def decrease_cart_quantity(request, slug):
 def checkout(request: HttpRequest) -> HttpResponse:
     context:dict = {
         'PAYSTACK_PUBLIC_KEY': settings.PAYSTACK_PUBLIC_KEY,
-        
     }
     return render(request, 'cart/checkout.html', context)
 

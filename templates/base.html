@@ -245,6 +245,7 @@
                             <div class="tab-content" id="tab-content-5">
                                 <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
                                     <form action="{% url 'login' %}" method="POST">
+                                        {% csrf_token %}
                                         <div class="form-group">
                                             <label for="singin-email">Username or email address *</label>
                                             <input type="text" class="form-control" id="singin-email" name="singin-email" required>
@@ -337,7 +338,7 @@
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
 
-    <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
+    {% comment %} <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="row no-gutters bg-white newsletter-popup-content">
@@ -366,7 +367,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <!-- Plugins JS File -->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>

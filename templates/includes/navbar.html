@@ -7,7 +7,11 @@
                     <li>
                         <a href="#">Links</a>
                         <ul>
-                            <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
+                            {% if user.is_authenticated  %}
+                            <li><i class="icon-user"></i>Hi, {{user.first_name}}</li>
+                            {% else %}
+                            <li><i class="icon-user"></i>Guest</li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul><!-- End .top-menu -->
