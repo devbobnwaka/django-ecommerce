@@ -1,0 +1,20 @@
+{% extends 'accounts/account-base.html' %}
+
+{% block content %}
+<div class="border border-secondary rounded p-3 " style="width: 350px;">
+    <p class="fs-3 text-danger text-center">Are you sure you want to logout ? </p>
+
+    <div class="d-flex justify-content-center">
+        <form action="" method="post" class="m-1 " >
+            {% csrf_token %}
+            <button type="submit" class="btn-small btn-danger mb-3  rounded">Yes</button>
+        </form>
+        <form action="{{ request.META.HTTP_REFERER }}" method="post" class=" m-1" >
+            {% csrf_token %}
+            <button type="submit" class="btn-small btn-primary mb-3  rounded">No</button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}

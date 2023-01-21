@@ -215,7 +215,7 @@
     e.preventDefault();
 
     let handler = PaystackPop.setup({
-        key: 'pk_test_6c3dd86bdc1b47a6ae182cee88678db7ecc133d0', // Replace with your public key
+        key: {{PAYSTACK_PUBLIC_KEY}}, // Replace with your public key
         email: 'nwakachibueze@gmail.com',
         amount: {{sub_total_int}} * 100,
         ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
@@ -224,8 +224,9 @@
         alert('Window closed.');
         },
         callback: function(response){
-        let message = 'Payment complete! Reference: ' + response.reference;
-        alert(message);
+            let message = 'Payment complete! Reference: ' + response.reference;
+            alert(message);
+            
         }
     });
 

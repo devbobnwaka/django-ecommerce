@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse 
 from store.models import Product, ProductImage
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def cart(request):
     quantity_dict = request.session.get('quantity')
     products = Product.objects.filter(slug__in=request.session['slug'])
@@ -11,7 +13,7 @@ def cart(request):
     context = quantity_dict | pro
     return render(request, 'cart/cart.html', context)
 
-
+@login_required
 def add_cart(request, slug):
     product = Product.objects.get(slug=slug)
     if 'slug' in request.session:
@@ -34,7 +36,7 @@ def add_cart(request, slug):
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def remove_cart(request, slug):
     request.session['slug'].remove(slug)
     request.session['quantity'].pop(slug)
@@ -46,7 +48,7 @@ def remove_cart(request, slug):
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def increase_cart_quantity(request, slug):
     product = Product.objects.get(slug=slug)
     request.session['quantity'][slug] += 1
@@ -58,7 +60,7 @@ def increase_cart_quantity(request, slug):
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def decrease_cart_quantity(request, slug):
     product = Product.objects.get(slug=slug)
     if request.session['quantity'][slug] > 1:
@@ -76,9 +78,12 @@ def decrease_cart_quantity(request, slug):
     request.session.modified = True
     return redirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def checkout(request: HttpRequest) -> HttpResponse:
-    print(settings.PAYSTACK_SECRET_KEY)
-    return render(request, 'cart/checkout.html', {})
+    context:dict = {
+        'PAYSTACK_PUBLIC_KEY': settings.PAYSTACK_PUBLIC_KEY,
+        
+    }
+    return render(request, 'cart/checkout.html', context)
 
 
