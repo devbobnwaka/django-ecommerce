@@ -10,7 +10,7 @@ def custom_context_processor(request):
     if 'discount_price_total' in request.session:
         for price in request.session['discount_price_total'].values():
             sub_total += price
-    return dict(cart_count=cart_count, sub_total="{:,}".format(sub_total)) 
+    return dict(cart_count=cart_count, sub_total="{:,}".format(sub_total), sub_total_int=int(sub_total)) 
 
 
 # def sub_total(request):

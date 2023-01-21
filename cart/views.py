@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse 
 from store.models import Product, ProductImage
+from django.conf import settings
 
 # Create your views here.
 def cart(request):
@@ -77,6 +78,7 @@ def decrease_cart_quantity(request, slug):
 
 
 def checkout(request: HttpRequest) -> HttpResponse:
+    print(settings.PAYSTACK_SECRET_KEY)
     return render(request, 'cart/checkout.html', {})
 
 
