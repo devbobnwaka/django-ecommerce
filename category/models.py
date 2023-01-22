@@ -1,4 +1,5 @@
 from django.db import models
+# from store.models import Product
 # from django.db.models.signals import pre_save, post_save
 # from utils.utils import slugify_instance_title
 
